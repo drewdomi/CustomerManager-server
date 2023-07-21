@@ -10,15 +10,17 @@ export const customerController = {
 
       res.send(allCustomers);
     } catch (error) {
-      console.log(res.send(error));
+      res.send(error);
     }
   },
   async createCustomer(req: Request, res: Response) {
     try {
       const createdCustomer = await prisma.customers.create({ data: req.body });
-      res.send(createdCustomer);
+      res.json(createdCustomer);
     } catch (error) {
-      console.log(res.send(error));
+      console.log(error);
+      console.log(req.body);
+      res.send(error);
     }
   },
 };
