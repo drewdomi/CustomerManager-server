@@ -14,6 +14,6 @@ model Customers {
   id       Int      @id @default(autoincrement())
   name     String   @db.VarChar(30)
   email    String   @db.VarChar(60)
-  cpf      String   @db.VarChar(11)
+  cpf      String   @unique @db.VarChar(11)
   birthday DateTime @db.Date
 }

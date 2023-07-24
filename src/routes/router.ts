@@ -5,5 +5,6 @@ const router = Router();
 
 router.get("/customers", customerController.getCustomers);
 router.post("/customers", customerController.createCustomer);
+router.get("/customers/:id", customerController.findById);
 
 export default router;
