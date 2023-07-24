@@ -56,8 +56,13 @@ export const customerController = {
 
       const customer = await prisma.customers.findMany({
         where: {
-          name: {
-            contains: name?.toString()
+          AND: {
+            name: {
+              contains: name?.toString()
+            },
+            cpf: {
+              contains: cpf?.toString()
+            }
           }
         }
       })
