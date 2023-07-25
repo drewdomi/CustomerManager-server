@@ -60,9 +60,7 @@ export const customerController = {
             name: {
               contains: name?.toString()
             },
-            cpf: {
-              contains: cpf?.toString()
-            }
+            cpf: cpf?.toString(),
           }
         }
       })
@@ -71,6 +69,22 @@ export const customerController = {
     } catch (error) {
       res.send(error);
     }
-  }
+  },
 
+  async editCustomer(req: Request, res: Response) {
+    const { id } = req.params
+    try {
+
+      const customer = await prisma.customers.updateMany({
+        where: {
+          id: Number(id)
+        },
+        data: req.body
+      })
+
+      res.send(customer);
+    } catch (error) {
+      res.send(error);
+    }
+  }
 };

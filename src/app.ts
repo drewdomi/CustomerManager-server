@@ -13,8 +13,8 @@ app.use(
 );
 app.use(
   cors({
-    origin: process.env.WEB_URL || "*",
-    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    origin: "*",
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   })
 );
 
