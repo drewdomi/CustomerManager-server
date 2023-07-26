@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import isValidCPF from "../snippets/isValidCpf";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,7 @@ export const customerController = {
           cpf: cpf
         }
       })
+      if (isValidCPF(cpf) === false) throw { error: "CPF Inválido!!" }
       if (customer) throw { error: "Cliente já cadastrado!!" }
 
       const createdCustomer = await prisma.customers.create({ data: req.body });
