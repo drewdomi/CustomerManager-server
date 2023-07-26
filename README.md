@@ -2,36 +2,35 @@
 ## 💭 Introdução
 Essa API rest faz a comunição entre o [Client](https://github.com/drewdomi/CustomerManager-client) com o Banco de Dados.
 
-
-
-## 🖥️ Como baixar e rodar!
-- Primeiro baixe o repositório (seja pelas por `git clone` ou através de um arquivo .zip pelo Github).
-- Com o projeto já **baixado** e descompactado entre na pasta e **rode o comando** `npm install` para baixar e instalar todas as dependencias!!
-- Agora dê o comando `npm run server` para iniciar a API.
-- A API estará disponível para acesso no Endpoint `http://localhost:3000/customers`.
-
 ## Funcionalidades
+- Buscar por todos os dados no Banco de Dados
 
 ## Como usar a API?
-- Chame as rotas 
+### Configuração do ambiente do Banco de Dados
+- Primeiro baixe o repositório (seja pelas por `git clone` ou através de um arquivo .zip pelo Github).
+- Após baixar você deve configurar o "environment", para isso crie um arquivo chamado `.env` na raiz do projeto, e edit ele adicionando a linha `DATABASE_URL=postgresql://test:test@localhost:5432/test` se for por exemplo banco PostgreSQL, para mais informações [acesse aqui](https://www.prisma.io/docs/guides/development-environment/environment-variables)
+
+### Baixe e instale as dependências
+
+- Com o projeto já **baixado** e o .env configurado **rode o comando** `npm install` para baixar e instalar todas as dependencias!!
+- Note que ele roda o comando `prisma generate` para justamente configurar o banco com o `.env`
+- Agora dê o comando `npm run server` para iniciar a API.
+- A API estará disponível para acesso no Endpoint `http://localhost:3000/customers`.
 
 ### API Endpoints
 | HTTP Verbs | Endpoints | Action |
 | --- | --- | --- |
 | GET | /customers | Recebe todos os clientes cadastrados |
-| GET | /customer:id | Busca um cliente por ID |
-| POST | /api/user/login | To login an existing user account |
-| POST | /api/causes | To create a new cause |
-| GET | /api/causes/:causeId | To retrieve details of a single cause |
-| PATCH | /api/causes/:causeId | To edit the details of a single cause |
-| DELETE | /api/causes/:causeId | To delete a single cause |
+| GET | /customers/:id | Busca um cliente por ID |
+| GET | /customers/find:queryParams | Busca um cliente por parametros ex: `?name=joao` |
+| POST | /customers | Cria um novo Cliente na base de dados |
+| PUT | /customers/:id | Altera um Cliente na base de dados |
+
 ### Technologies Used
-* [NodeJS](https://nodejs.org/) This is a cross-platform runtime environment built on Chrome's V8 JavaScript engine used in running JavaScript codes on the server. It allows for installation and managing of dependencies and communication with databases.
-* [ExpressJS](https://www.expresjs.org/) This is a NodeJS web application framework.
-* [MongoDB](https://www.mongodb.com/) This is a free open source NOSQL document database with scalability and flexibility. Data are stored in flexible JSON-like documents.
-* [Mongoose ODM](https://mongoosejs.com/) This makes it easy to write MongoDB validation by providing a straight-forward, schema-based solution to model to application data.
-### Authors
-* [Black Developa](https://github.com/blackdevelopa)
-* ![alt text](https://avatars0.githubusercontent.com/u/29962968?s=400&u=7753a408ed02e51f88a13a5d11014484bc4d80ee&v=4)
-### License
-This project is available for use under the MIT License.
+- NodeJS: uma plataforma de desenvolvimento backend de código aberto construída sobre o motor V8 do Google Chrome. Ele permite executar código JavaScript no lado do servidor, o que facilita a construção de aplicativos de alto desempenho e escaláveis. Com o Node.js, é possível criar servidores web, APIs REST, serviços de rede e outras aplicações backend.
+
+- **TypeScript**: um superset JavaScript que adicionando tipagem estática opcional e recursos avançados de programação orientada a objetos. Ao usar o TypeScript, você pode identificar erros de forma mais rápida durante o desenvolvimento, melhorar a manutenção do código e obter recursos avançados, como interfaces, enums e tipos personalizados.
+
+- **Express**:  um framework web minimalista para Node.js. Ele facilita a criação de aplicativos e APIs RESTful de forma rápida e simples. Com uma estrutura de middleware flexível, o Express permite o processamento de solicitações HTTP, gerenciamento de rotas e muito mais, tornando-o uma escolha popular para a construção de servidores web.
+
+- **Prisma**: uma ferramenta de mapeamento objeto-relacional (ORM) moderna e poderosa para Node.js e TypeScript. Ela facilita a interação com o banco de dados, permitindo que você modele seus dados usando uma linguagem de definição de esquema declarativa e, em seguida, gere automaticamente consultas SQL para interagir com o banco de dados. Prisma oferece suporte para PostgreSQL, MySQL e SQLite, permitindo que você crie aplicativos escaláveis e seguros com facilidade.
