@@ -5,6 +5,16 @@ import isValidCPF from "../snippets/isValidCpf";
 const prisma = new PrismaClient();
 
 export const customerController = {
+
+  testApi(req: Request, res: Response) {
+    try {
+
+      res.send('Customer Manager API is running!!!')
+    } catch (error) {
+      res.send(error);
+    }
+  },
+
   async getCustomers(req: Request, res: Response) {
     try {
 
