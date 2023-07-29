@@ -1,3 +1,4 @@
+import http from "node:http"
 import express from "express";
 import router from "./routes/router";
 import cors from "cors"
@@ -17,8 +18,14 @@ app.use(
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   })
 );
-
 app.use(router);
-app.listen(port, () => {
+
+const server = http.createServer(app)
+server.on("error", (error) => {
+  console.log(error)
+})
+
+server.listen(port, () => {
   console.log("API running on port " + port);
+
 });
