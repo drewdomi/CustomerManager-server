@@ -27,5 +27,4 @@ server.on("error", (error) => {
 
 server.listen(port, () => {
   console.log("API running on port " + port);
-
 });
