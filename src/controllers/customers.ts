@@ -35,7 +35,7 @@ export const customerController = {
         }
       })
       if (isValidCPF(cpf) === false) throw { error: "CPF Inválido!!" }
-      if (customer) throw { error: "Cliente já cadastrado!!" }
+      if (customer) throw { error: "CPF já cadastrado!!" }
 
       const createdCustomer = await prisma.customers.create({ data: req.body });
 
