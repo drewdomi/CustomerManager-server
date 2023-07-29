@@ -70,7 +70,8 @@ export const customerController = {
         where: {
           AND: {
             name: {
-              contains: name?.toString()
+              contains: name?.toString(),
+              mode: 'insensitive',
             },
             cpf: cpf?.toString(),
           }
