@@ -7,7 +7,7 @@ router.get("/customers", customerController.getCustomers);
 router.post("/customers", customerController.createCustomer);
 router.get("/customers/find", customerController.findByParams);
 router.get("/customers/:id", customerController.findById);
-router.put("/customers/:id", customerController.editCustomer)
-router.get("/", customerController.testApi)
+router.put("/customers/:id", customerController.editCustomer);
+router.get("/", customerController.testApi);
 
 export default router;
