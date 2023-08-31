@@ -38,7 +38,6 @@ export const customerController = {
       });
 
       const newReqBody = { ...req.body, cpf: newCpf };
-      console.log(newReqBody);
 
       if (!isValidCpf(newCpf)) throw { error: "CPF inválido" };
       if (customer) throw { error: "CPF já cadastrado" };
@@ -75,17 +74,17 @@ export const customerController = {
     try {
       const customer = await prisma.customers.findMany({
         where: {
-          AND: {
-            name: {
-              contains: name?.toString(),
-              mode: 'insensitive',
-            },
-            cpf: cpf?.toString(),
-          }
+          name: {
+            contains: String(name),
+            mode: 'insensitive',
+          },
         }
+
       });
 
+      cpf && res.send(customer.filter(customer => customer.cpf === unMaskCpf(String(cpf)))) ||
       res.send(customer);
+
     } catch (error) {
       res.send(error);
     }
