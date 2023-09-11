@@ -83,7 +83,7 @@ export const customerController = {
       });
 
       cpf && res.send(customer.filter(customer => customer.cpf === unMaskCpf(String(cpf)))) ||
-      res.send(customer);
+        res.send(customer);
 
     } catch (error) {
       res.send(error);
@@ -92,13 +92,16 @@ export const customerController = {
 
   async editCustomer(req: Request, res: Response) {
     const { id } = req.params;
+    let { isActive } = req.body;
+
+    isActive === "ativo" ? isActive = true : isActive = false;
 
     try {
       const customer = await prisma.customers.updateMany({
         where: {
           id: Number(id)
         },
-        data: req.body
+        data: { ...req.body, isActive: isActive }
       });
 
       res.send(customer);
