@@ -64,7 +64,7 @@ export const customerController = {
 
       res.send(customer);
     } catch (error) {
-      res.send(error);
+      res.status(404).send(error);
     }
   },
 
