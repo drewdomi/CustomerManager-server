@@ -60,7 +60,7 @@ export const customerController = {
         }
       });
 
-      if (!customer) throw { error: "Cliente não encontrado" };
+      if (!customer) throw {};
 
       res.send(customer);
     } catch (error) {
