@@ -6,27 +6,42 @@ const prisma = new PrismaClient();
 
 export const authController = {
   async login(req: Request, res: Response) {
-    const { email, password } = req.body;
+    try {
+      const { email, password } = req.body;
+      const customer = await prisma.customers.findFirst({
+        where: {
+          email: email,
+        },
+        select: {
+          name: true,
+          email: true,
+          birthday: true,
+          password: true,
+        },
+      });
 
-    const customer = await prisma.customers.findFirst({
-      where: {
-        email: email,
-      },
-    });
+      if (!customer) {
+        return res.status(404).json("Cliente não encontrado");
+      }
 
-    if (!customer) {
-      return res.status(404).json("Cliente não encontrado");
+      const validPassword = await bcrypt.compare(
+        password,
+        customer.password || "",
+      );
+
+      if (!validPassword) {
+        return res.status(401).send({ error: "usuario ou senha incorretos." });
+      }
+
+      const resUser = {
+        name: customer.name,
+        email: customer.email,
+        birthday: customer.birthday,
+      };
+
+      return res.send(resUser);
+    } catch (error) {
+      console.log(error);
     }
-
-    const validPassword = await bcrypt.compare(
-      password,
-      customer.password || "",
-    );
-
-    if (!validPassword) {
-      return res.status(401).send({ error: "usuario ou senha incorretos." });
-    }
-
-    return res.send(customer);
   },
 };
