@@ -14,6 +14,7 @@ model Customers {
   id       Int     @id @default(autoincrement())
   name     String  @db.VarChar(60)
   email    String  @db.VarChar(60)
+  password String  @db.VarChar(60)
   cpf      String  @unique @db.VarChar(11)
   birthday String  @db.VarChar(10)
   isActive Boolean @default(true)
