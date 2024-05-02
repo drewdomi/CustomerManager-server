@@ -1,48 +1,59 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { isValidCpf, unMaskCpf } from "../snippets/handleData";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 export const customerController = {
-
-  testApi(req: Request, res: Response) {
-
+  testApi(_req: Request, res: Response) {
     try {
-      res.send('Customer Manager API is running!!!');
+      res.send("Customer Manager API is running!!!");
     } catch (error) {
       res.send(error);
     }
   },
 
-  async getCustomers(req: Request, res: Response) {
-
+  async getCustomers(_req: Request, res: Response) {
     try {
-      const allCustomers = await prisma.customers.findMany();
+      const allCustomers = await prisma.customers.findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          cpf: true,
+          birthday: true,
+          isActive: true,
+        },
+      });
 
       res.send(allCustomers);
     } catch (error) {
-      res.send(error);
+      res.status(400).send(error);
     }
   },
   async createCustomer(req: Request, res: Response) {
-
     try {
       const { cpf } = req.body;
       const newCpf = unMaskCpf(cpf);
 
       const customer = await prisma.customers.findUnique({
         where: {
-          cpf: newCpf
-        }
+          cpf: newCpf,
+        },
       });
 
-      const newReqBody = { ...req.body, cpf: newCpf };
+      const salt = await bcrypt.genSalt(12);
+      const password = await bcrypt.hash(req.body.password, salt);
+
+      const newReqBody = { ...req.body, cpf: newCpf, password };
 
       if (!isValidCpf(newCpf)) throw { error: "CPF inválido" };
       if (customer) throw { error: "CPF já cadastrado" };
 
-      const createdCustomer = await prisma.customers.create({ data: newReqBody });
+      const createdCustomer = await prisma.customers.create({
+        data: newReqBody,
+      });
 
       res.send(createdCustomer);
     } catch (error) {
@@ -56,8 +67,8 @@ export const customerController = {
     try {
       const customer = await prisma.customers.findUnique({
         where: {
-          id: Number(id)
-        }
+          id: Number(id),
+        },
       });
 
       if (!customer) throw {};
@@ -76,15 +87,18 @@ export const customerController = {
         where: {
           name: {
             contains: String(name),
-            mode: 'insensitive',
+            mode: "insensitive",
           },
-        }
-
+        },
       });
 
-      cpf && res.send(customer.filter(customer => customer.cpf === unMaskCpf(String(cpf)))) ||
+      (cpf &&
+        res.send(
+          customer.filter(
+            (customer) => customer.cpf === unMaskCpf(String(cpf)),
+          ),
+        )) ||
         res.send(customer);
-
     } catch (error) {
       res.send(error);
     }
@@ -94,19 +108,19 @@ export const customerController = {
     const { id } = req.params;
     let { isActive } = req.body;
 
-    isActive === "ativo" ? isActive = true : isActive = false;
+    isActive === "ativo" ? (isActive = true) : (isActive = false);
 
     try {
       const customer = await prisma.customers.updateMany({
         where: {
-          id: Number(id)
+          id: Number(id),
         },
-        data: { ...req.body, isActive: isActive }
+        data: { ...req.body, isActive: isActive },
       });
 
       res.send(customer);
     } catch (error) {
       res.send(error);
     }
-  }
+  },
 };
