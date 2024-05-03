@@ -8,6 +8,10 @@ export const authController = {
   async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res.status(401).send({ error: "Email ou senha inválidos" });
+      }
       const customer = await prisma.customers.findFirst({
         where: {
           email: email,
@@ -21,16 +25,13 @@ export const authController = {
       });
 
       if (!customer) {
-        return res.status(404).json("Cliente não encontrado");
+        return res.status(404).json({ error: "Cliente não encontrado" });
       }
 
-      const validPassword = await bcrypt.compare(
-        password,
-        customer.password || "",
-      );
+      const validPassword = await bcrypt.compare(password, customer.password);
 
       if (!validPassword) {
-        return res.status(401).send({ error: "usuario ou senha incorretos." });
+        return res.status(401).send({ error: "Email ou senha incorretos" });
       }
 
       const resUser = {
