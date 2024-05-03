@@ -22,13 +22,13 @@ export const authController = {
       });
 
       if (!customer) {
-        return res.status(404).json({ error: "Cliente não encontrado" });
+        return res.status(404).json({ message: "Cliente não encontrado" });
       }
 
       const validPassword = await bcrypt.compare(password, customer.password);
 
       if (!validPassword) {
-        return res.status(401).send({ error: "Email ou senha incorretos" });
+        return res.status(401).send({ message: "Email ou senha incorretos" });
       }
 
       const resUser = {
