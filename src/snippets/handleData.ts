@@ -1,6 +1,9 @@
 export function isValidCpf(cpf: string) {
   cpf = unMaskCpf(cpf);
 
+  if (cpf.length !== 11) return false;
+  if (cpf === "01234567890") return false;
+
   let sum = 0;
   let rest: number;
 
