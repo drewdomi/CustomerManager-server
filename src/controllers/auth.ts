@@ -9,9 +9,6 @@ export const authController = {
     try {
       const { email, password } = req.body;
 
-      if (!email || !password) {
-        return res.status(401).send({ error: "Email ou senha inválidos" });
-      }
       const customer = await prisma.customers.findFirst({
         where: {
           email: email,
