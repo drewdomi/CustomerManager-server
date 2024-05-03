@@ -4,15 +4,15 @@ export const loginSchema = z.object({
   body: z.object({
     email: z
       .string({
-        required_error: "Email é obrigatório",
-        message: "Email inválido",
+        message: "Email ou senha inválidos",
       })
-      .email("Email precisa ser válido"),
+      .email("Email ou senha inválidos"),
     password: z
       .string({
-        required_error: "Senha é obrigatória",
-        message: "Senha inválida",
+        message: "Email ou senha inválidos",
       })
-      .min(4, "Senha precisa ter no mínimo 4 caracteres"),
+      .min(4, "Email ou senha inválidos")
+      .trim()
+      .refine((s) => s.includes(" "), "Email ou senha inválidos"),
   }),
 });
