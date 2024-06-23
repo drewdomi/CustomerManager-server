@@ -15,7 +15,7 @@ app.use(
 app.use(
   cors({
     origin: '*',
-    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   }),
 )
 app.use(routes)

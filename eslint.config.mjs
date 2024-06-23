@@ -4,6 +4,7 @@ import tseslint from 'typescript-eslint'
 export default [
   {
     languageOptions: { globals: globals.browser },
+    root,
   },
   ...tseslint.configs.recommended,
 ]

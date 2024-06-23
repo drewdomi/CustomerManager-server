@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import { AnyZodObject, ZodError } from 'zod'
-import { verifyReqBody } from '../utils/verify-req-body'
+
+function verifyReqBody(req: Request) {
+  if (Object.keys(req.body).length === 0) return false
+
+  return true
+}
 
 export const zodMiddleware =
   (schema: AnyZodObject) =>

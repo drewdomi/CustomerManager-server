@@ -1,5 +1,5 @@
-import { civilState } from '@prisma/client'
 import { z } from 'zod'
+import { civilState } from '../models/enum/civilState'
 
 export const createEmployeeSchema = z.object({
   body: z.object({
@@ -7,15 +7,22 @@ export const createEmployeeSchema = z.object({
       .string({
         message: 'Nome é obrigatório',
       })
-      .trim(),
+      .trim()
+      .min(3)
+      .max(255),
     motherName: z
       .string({
         message: 'Nome da mãe é obrigatório',
       })
-      .trim(),
-    cpf: z.string({
-      message: 'CPF é obrigatório',
-    }),
+      .trim()
+      .min(3)
+      .max(255),
+    cpf: z
+      .string({
+        message: 'CPF é obrigatório',
+      })
+      .min(11)
+      .max(11),
     birthDate: z
       .string({
         message: 'BirthDate é obrigatório',
@@ -23,7 +30,7 @@ export const createEmployeeSchema = z.object({
       .max(10, 'BirthDate precisa seguir o formato yyyy-mm-dd')
       .min(10, 'BirthDate precisa seguir o formato yyyy-mm-dd'),
     civilState: z.nativeEnum(civilState, {
-      required_error: 'Estado civil é obrigatório',
+      required_error: 'CivilState é obrigatório',
       message:
         'CivilState precisa ser SOLTEIRO | CASADO | SEPARADO | DIVORCIADO | VIUVO',
     }),
@@ -36,10 +43,10 @@ export const createEmployeeSchema = z.object({
       .min(10, 'AdmissionDate precisa seguir o formato yyyy-mm-dd'),
     validityDate: z
       .string({
-        message: 'AdmissionDate é obrigatório',
+        message: 'ValidityDate é obrigatório',
       })
-      .max(10, 'AdmissionDate precisa seguir o formato yyyy-mm-dd')
-      .min(10, 'AdmissionDate precisa seguir o formato yyyy-mm-dd'),
+      .max(10, 'ValidityDate precisa seguir o formato yyyy-mm-dd')
+      .min(10, 'ValidityDate precisa seguir o formato yyyy-mm-dd'),
     registration: z.string().min(7).max(8),
   }),
 })

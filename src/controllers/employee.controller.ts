@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
-import { CreateEmployeeSchemaType } from '../types/employee'
+import { CreateEmployeeSchemaType } from '../models/types/employee'
+
 const prisma = new PrismaClient()
 
 export const employeeController = {
