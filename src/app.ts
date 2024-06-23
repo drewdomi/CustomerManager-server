@@ -1,30 +1,25 @@
-import http from "node:http"
-import express from "express";
-import router from "./routes/router";
-import cors from "cors"
-const app = express();
-const port = process.env.PORT || 3000;
+import cors from 'cors'
+import express from 'express'
+import { routes } from './routes'
 
-app.use(express.json());
+const app = express()
+const port = process.env.PORT || 3000
+
+app.use(express.json())
 
 app.use(
   express.urlencoded({
     extended: true,
-  })
-);
+  }),
+)
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-  })
-);
-app.use(router);
+    origin: '*',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  }),
+)
+app.use(routes)
 
-const server = http.createServer(app)
-server.on("error", (error) => {
-  console.log(error)
+app.listen(port, () => {
+  console.log('API running on port ' + port)
 })
-
-server.listen(port, () => {
-  console.log("API running on port " + port);
-});

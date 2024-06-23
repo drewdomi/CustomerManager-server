@@ -1,10 +1,14 @@
-version: "3"
 services:
-  db:
+  employee-db:
     image: bitnami/postgresql
     ports:
       - 5431:5432
     environment:
-      - POSTGRESQL_USERNAME=johndoe
-      - POSTGRESQL_PASSWORD=randompassword
-      - POSTGRESQL_DATABASE=mydb
+      POSTGRESQL_USERNAME: johndoe
+      POSTGRESQL_PASSWORD: randompassword
+      POSTGRESQL_DATABASE: compose
+    volumes:
+      - ./.docker/employee-db/data:/var/lib/employee-db/:delegated
+
+volumes:
+  employee-db:
