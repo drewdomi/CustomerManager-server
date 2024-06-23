@@ -3,17 +3,21 @@
   "version": "0.0.0",
   "description": "A API to store and serve data from a SQL Server Database",
   "main": "app.ts",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "tsx --watch src/app.ts",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "pretty": "prettier src/",
     "pretty:fix": "prettier --write src/",
+    "seed": "prisma db seed",
     "studio": "prisma studio",
     "prisma-dev": "prisma generate && prisma db push",
     "migrate": "prisma migrate dev",
     "build": "tsc",
-    "postinstall": "prisma generate && prisma db push"
+    "postinstall": "prisma migrate dev && prisma db seed"
   },
   "keywords": [],
   "author": "Andrew Domingues <contato@drewdomi.com>",
