@@ -1,9 +1,10 @@
 import { Response, Router } from 'express'
+import { authRouter } from './auth.routes'
 import { employeeRouter } from './employee.routes'
 
-const routes = Router()
+export const router = Router()
 
-routes.get('/', (_req, res: Response) => {
+router.get('/', (_req, res: Response) => {
   res
     .writeHead(301, {
       Location: process.env.CLIENT_URL,
@@ -11,6 +12,5 @@ routes.get('/', (_req, res: Response) => {
     .end()
 })
 
-routes.use(employeeRouter)
-
-export { routes }
+router.use(employeeRouter)
+router.use(authRouter)

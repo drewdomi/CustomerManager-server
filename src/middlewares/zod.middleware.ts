@@ -20,6 +20,6 @@ export const zodMiddleware =
       if (error instanceof ZodError)
         return res.status(401).json({ message: error.issues[0].message })
 
-      return res.status(500).json({ message: 'Internal Server Error' })
+      return res.status(500).json({ message: 'Internal server error' })
     }
   }

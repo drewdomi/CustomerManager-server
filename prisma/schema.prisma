@@ -33,7 +33,7 @@ model Employee {
 
 model User {
   id        Int      @id @default(autoincrement())
-  code      String   @db.VarChar(8)
+  code      String   @unique @db.VarChar(8)
   password  String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

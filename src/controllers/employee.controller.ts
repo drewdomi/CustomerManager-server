@@ -28,7 +28,7 @@ export const employeeController = {
       if (alreadyCreated)
         return res
           .status(409)
-          .json({ message: 'Matrícula, RG ou CPF já existe.' })
+          .json({ message: 'Matrícula, RG ou CPF já existe' })
 
       await prisma.employee.create({
         data: {
@@ -37,10 +37,10 @@ export const employeeController = {
         },
       })
 
-      res.status(201).json({ message: 'Funcionário criado com sucesso.' })
+      res.status(201).json({ message: 'Funcionário criado com sucesso' })
     } catch (error) {
       console.error(error)
-      res.status(400).json({ message: 'Erro ao criar funcionário.' })
+      res.status(400).json({ message: 'Erro ao criar funcionário' })
     }
   },
 
@@ -61,7 +61,7 @@ export const employeeController = {
       res.status(200).json(employees || [])
     } catch (error) {
       console.error(error)
-      res.status(400).json({ message: 'Erro ao listar funcionarios.' })
+      res.status(400).json({ message: 'Erro ao listar funcionarios' })
     }
   },
 }
