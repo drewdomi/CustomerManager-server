@@ -17,6 +17,12 @@ export const createEmployeeSchema = z.object({
       .trim()
       .min(3)
       .max(255),
+    rg: z
+      .string({
+        message: 'RG é obrigatório',
+      })
+      .min(9)
+      .max(9),
     cpf: z
       .string({
         message: 'CPF é obrigatório',

@@ -10,3 +10,5 @@ employeeRouter.post(
   zodMiddleware(createEmployeeSchema),
   employeeController.create,
 )
+
+employeeRouter.get('/employee', employeeController.findAll)

@@ -19,6 +19,7 @@ model Employee {
   id            Int        @id @default(autoincrement())
   name          String     @db.VarChar(255)
   motherName    String     @db.VarChar(255)
+  rg            String     @unique @db.VarChar(9)
   cpf           String     @unique @db.VarChar(11)
   birthDate     String     @db.VarChar(10)
   civilState    civilState

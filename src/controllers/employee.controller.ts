@@ -13,6 +13,9 @@ export const employeeController = {
         where: {
           OR: [
             {
+              rg: data.rg,
+            },
+            {
               cpf: data.cpf,
             },
             {
@@ -23,16 +26,42 @@ export const employeeController = {
       })
 
       if (alreadyCreated)
-        return res.status(409).json({ message: 'Matrícula ou CPF já existe.' })
+        return res
+          .status(409)
+          .json({ message: 'Matrícula, RG ou CPF já existe.' })
 
       await prisma.employee.create({
-        data: data,
+        data: {
+          ...data,
+          plan: data.plan.toUpperCase(),
+        },
       })
 
       res.status(201).json({ message: 'Funcionário criado com sucesso.' })
     } catch (error) {
       console.error(error)
       res.status(400).json({ message: 'Erro ao criar funcionário.' })
+    }
+  },
+
+  async findAll(_req: Request, res: Response) {
+    try {
+      const employees = await prisma.employee.findMany({
+        select: {
+          name: true,
+          motherName: true,
+          rg: true,
+          cpf: true,
+          birthDate: true,
+          plan: true,
+          civilState: true,
+        },
+      })
+
+      res.status(200).json(employees)
+    } catch (error) {
+      console.error(error)
+      res.status(400).json({ message: 'Erro ao listar funcionarios.' })
     }
   },
 }
