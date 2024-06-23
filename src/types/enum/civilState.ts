@@ -1,0 +1,7 @@
+export enum civilState {
+  SOLTEIRO = 'SOLTEIRO',
+  CASADO = 'CASADO',
+  SEPARADO = 'SEPARADO',
+  DIVORCIADO = 'DIVORCIADO',
+  VIUVO = 'VIUVO',
+}
