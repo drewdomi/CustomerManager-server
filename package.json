@@ -13,7 +13,7 @@
     "prisma-dev": "prisma generate && prisma db push",
     "migrate": "prisma migrate dev",
     "build": "tsc",
-    "postinstall": "npm run prisma-dev"
+    "postinstall": "prisma generate && prisma db push"
   },
   "keywords": [],
   "author": "Andrew Domingues <contato@drewdomi.com>",
