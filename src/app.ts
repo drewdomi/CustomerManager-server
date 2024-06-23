@@ -14,10 +14,11 @@ app.use(
 )
 app.use(
   cors({
-    origin: '*',
+    origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   }),
 )
+
 app.use(routes)
 
 app.listen(port, () => {
