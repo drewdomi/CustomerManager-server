@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import ms from 'ms'
 import { LoginSchemaType } from '../models/types/auth'
 
 const prisma = new PrismaClient()
@@ -28,13 +29,15 @@ export const authController = {
       const tokenSecret = process.env.TOKEN_SECRET || 'defaultTokenSecret'
       const tokenExp = process.env.TOKEN_EXP || '8h'
 
+      const tokenExpires = new Date(Date.now() + ms(tokenExp)).toUTCString()
+
       const token = jwt.sign({ code: user.code }, tokenSecret, {
         expiresIn: tokenExp,
       })
 
       res
         .writeHead(200, {
-          'Set-Cookie': `token=${token}; HttpOnly`,
+          'Set-Cookie': `sessionId=${token}; Expires=${tokenExpires}; HttpOnly; Secure`,
           'Access-Control-Allow-Credentials': 'true',
         })
         .send()

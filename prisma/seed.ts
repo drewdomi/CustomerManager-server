@@ -4,11 +4,11 @@ import bcrypt from 'bcrypt'
 const prisma = new PrismaClient()
 
 async function main() {
-  const code = process.env.DEFAULT_CODE?.toUpperCase() || 'USER'
+  const code = process.env.DEFAULT_CODE?.toUpperCase() || 'user1234'
 
   const salt = await bcrypt.genSalt(12)
   const password = await bcrypt.hash(
-    process.env.DEFAULT_PASSWORD || 'pass123',
+    process.env.DEFAULT_PASSWORD || 'pass1234',
     salt,
   )
 

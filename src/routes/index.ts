@@ -5,11 +5,7 @@ import { employeeRouter } from './employee.routes'
 export const router = Router()
 
 router.get('/', (_req, res: Response) => {
-  res
-    .writeHead(301, {
-      Location: process.env.CLIENT_URL,
-    })
-    .end()
+  res.redirect(process.env.CLIENT_URL || '')
 })
 
 router.use(employeeRouter)
