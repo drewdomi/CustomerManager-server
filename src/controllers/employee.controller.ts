@@ -58,7 +58,7 @@ export const employeeController = {
         },
       })
 
-      res.status(200).json(employees || [])
+      res.status(200).json(employees || null)
     } catch (error) {
       console.error(error)
       res.status(400).json({ message: 'Erro ao listar funcionarios' })

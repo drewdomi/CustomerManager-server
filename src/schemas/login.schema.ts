@@ -6,8 +6,7 @@ export const loginSchema = z.object({
       .string({
         message: 'Code é obrigatório',
       })
-      .min(4)
-      .max(8),
+      .max(255),
     password: z
       .string({
         message: 'Password é obrigatório',
