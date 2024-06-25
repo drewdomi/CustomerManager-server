@@ -6,3 +6,5 @@ import { loginSchema } from '../schemas/login.schema'
 export const authRouter = Router()
 
 authRouter.post('/auth', zodMiddleware(loginSchema), authController.login)
+
+authRouter.get('/logout', authController.logout)

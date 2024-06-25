@@ -29,21 +29,31 @@ export const authController = {
       const tokenSecret = process.env.TOKEN_SECRET || 'defaultTokenSecret'
       const tokenExp = process.env.TOKEN_EXP || '8h'
 
-      const tokenExpires = new Date(Date.now() + ms(tokenExp)).toUTCString()
-
       const token = jwt.sign({ code: user.code }, tokenSecret, {
         expiresIn: tokenExp,
       })
 
+      const tokenExpires = new Date(Date.now() + ms(tokenExp)).toUTCString()
+
       res
         .writeHead(200, {
-          'Set-Cookie': `sessionId=${token}; Expires=${tokenExpires}; HttpOnly; Secure`,
+          'Set-Cookie': `sessionId=${token}; Expires=${tokenExpires}; HttpOnly; Secure; SameSite=None`,
           'Access-Control-Allow-Credentials': 'true',
         })
         .send()
     } catch (error) {
       console.error(error)
       res.status(400).json({ message: 'Erro ao fazer login' })
+    }
+  },
+
+  logout(req: Request, res: Response) {
+    try {
+      if (!req.headers.cookie) return res.status(204).send()
+      res.clearCookie('sessionId', { httpOnly: true }).status(204).send()
+    } catch (error) {
+      console.error(error)
+      res.status(400).json({ message: 'Erro ao fazer logout' })
     }
   },
 }
