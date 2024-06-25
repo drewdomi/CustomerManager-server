@@ -48,6 +48,7 @@ export const employeeController = {
     try {
       const employees = await prisma.employee.findMany({
         select: {
+          id: true,
           name: true,
           motherName: true,
           rg: true,

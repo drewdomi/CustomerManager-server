@@ -37,7 +37,7 @@ export const authController = {
 
       res
         .writeHead(200, {
-          'Set-Cookie': `sessionId=${token}; Expires=${tokenExpires}; HttpOnly; Secure; SameSite=None`,
+          'Set-Cookie': `sessionId=${token}; Expires=${tokenExpires}; HttpOnly; SameSite=Strict`,
           'Access-Control-Allow-Credentials': 'true',
         })
         .send()
@@ -47,9 +47,8 @@ export const authController = {
     }
   },
 
-  logout(req: Request, res: Response) {
+  logout(_req: Request, res: Response) {
     try {
-      if (!req.headers.cookie) return res.status(204).send()
       res.clearCookie('sessionId', { httpOnly: true }).status(204).send()
     } catch (error) {
       console.error(error)
