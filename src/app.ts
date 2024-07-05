@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express from 'express'
-import { routes } from './routes'
+import { router } from './routes'
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -14,11 +14,12 @@ app.use(
 )
 app.use(
   cors({
-    origin: '*',
+    origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   }),
 )
-app.use(routes)
+
+app.use(router)
 
 app.listen(port, () => {
   console.log('API running on port ' + port)

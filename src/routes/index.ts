@@ -1,8 +1,12 @@
-import { Router } from 'express'
+import { Response, Router } from 'express'
+import { authRouter } from './auth.routes'
 import { employeeRouter } from './employee.routes'
 
-const routes = Router()
+export const router = Router()
 
-routes.use(employeeRouter)
+router.get('/', (_req, res: Response) => {
+  res.redirect(process.env.CLIENT_URL || '')
+})
 
-export { routes }
+router.use(employeeRouter)
+router.use(authRouter)
